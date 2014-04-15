@@ -10,7 +10,7 @@
 #import "CSUIActionSheetOptions_Private.h"
 
 @implementation CSUIActionSheetOptions
-@dynamic buttons, cancelButtonIndex, destructiveButtonIndex;
+@dynamic buttons, cancelButtonIndex, destructiveButtonIndex, interfaceIdiomForbidsCancelButton;
 
 + (instancetype)optionsWithView:(UIView *)view
 {
@@ -61,10 +61,15 @@
     return self._buttons;
 }
 
+- (BOOL)interfaceIdiomForbidsCancelButton
+{
+    //API Documentation says iPad shall not have a cancel button title
+    return [[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad;
+}
+
 - (NSString *)cancelButtonTitle
 {
-    if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad) {
-        //API Documentation says iPad shall not have a cancel button title
+    if (self.interfaceIdiomForbidsCancelButton) {
         return nil;
     } else if (_cancelButtonTitle) {
         return _cancelButtonTitle;

@@ -9,6 +9,7 @@
 #import <XCTest/XCTest.h>
 #import "CSUIActionSheet.h"
 #import "CSUIActionSheetOptions_Private.h"
+#import <OCMock/OCMock.h>
 
 @interface CSUIActionSheetOptionsTests : XCTestCase
 
@@ -70,6 +71,38 @@
     
     XCTAssertEqual(opts.destructiveButtonIndex, -1, @"Destructive button index has to be -1 if not explicitly set");
     XCTAssertEqual(opts.cancelButtonIndex, 2, @"Cancel button index is not at the end of all options.");
+    
+}
+
+- (void)testNoCancelButtonOniPadIdiom
+{
+    
+    CSUIActionSheetOptions* opts = [CSUIActionSheetOptions optionsWithView:nil];
+    [opts setCancelButton:@"Some cancel title" callback:^{
+        
+    }];
+    id mockOpts = [OCMockObject partialMockForObject:opts];
+    
+    [[[mockOpts stub] andReturnValue:@(YES)] interfaceIdiomForbidsCancelButton];
+    
+    XCTAssertNil([mockOpts cancelButtonTitle], @"There must not be a cancel button title if `interfaceIdiomForbidsCancelButton` returns YES");
+    
+    [mockOpts verify];
+    
+}
+
+- (void)testDefaultCancelButtonForiPhoneIdiom
+{
+    
+    CSUIActionSheetOptions* opts = [CSUIActionSheetOptions optionsWithView:nil];
+    [opts setCancelButton:nil callback:^{
+        
+    }];
+    id mockOpts = [OCMockObject partialMockForObject:opts];
+    
+    [[[mockOpts stub] andReturnValue:@(NO)] interfaceIdiomForbidsCancelButton];
+    
+    XCTAssertTrue([[mockOpts cancelButtonTitle] isEqualToString:NSLocalizedString(@"Cancel", @"")], @"Default cancel button title must be localized version of `Cancel`");
     
 }
 

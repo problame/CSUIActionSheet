@@ -18,5 +18,7 @@
 @property (nonatomic, strong, readwrite) NSString* cancelButtonTitle;
 @property (nonatomic, strong, readwrite) NSString* destructiveButtonTitle;
 
+@property (readonly) BOOL interfaceIdiomForbidsCancelButton;
+
 
 @end
