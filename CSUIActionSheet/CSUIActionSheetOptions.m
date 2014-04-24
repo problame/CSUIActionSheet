@@ -25,6 +25,7 @@
     if (self) {
         self._buttons = [NSMutableArray array];
         self.callbacks = [NSMutableArray array];
+        self.forceCancelButton = NO;
     }
     return self;
 }
@@ -69,7 +70,7 @@
 
 - (NSString *)cancelButtonTitle
 {
-    if (self.interfaceIdiomForbidsCancelButton) {
+    if (self.interfaceIdiomForbidsCancelButton && !self.forceCancelButton) {
         return nil;
     } else if (_cancelButtonTitle) {
         return _cancelButtonTitle;

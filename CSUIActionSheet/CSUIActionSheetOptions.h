@@ -27,5 +27,6 @@
 - (void)setCancelButton:(NSString*)buttonTitle callback:(void (^)())callback;
 @property (nonatomic, strong, readonly) NSString* cancelButtonTitle;
 @property (readonly) NSInteger cancelButtonIndex;
+@property (nonatomic) BOOL forceCancelButton;
 
 @end

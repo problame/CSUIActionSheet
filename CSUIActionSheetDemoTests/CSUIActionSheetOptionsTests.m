@@ -91,6 +91,27 @@
     
 }
 
+- (void)testForceCancelButtonOniPhone
+{
+    
+    CSUIActionSheetOptions* opts = [CSUIActionSheetOptions optionsWithView:nil];
+    id mockOpts = [OCMockObject partialMockForObject:opts];
+    [[[mockOpts stub] andReturnValue:@(NO)] interfaceIdiomForbidsCancelButton];
+    opts.forceCancelButton = YES;
+    
+    XCTAssertTrue([[opts cancelButtonTitle] isKindOfClass:[NSString class]], @"Force cancel button has to result in a cancel button being returned by `cancelButtonTitle`");
+}
+
+- (void)testForceCancelButtonOniPad
+{
+    CSUIActionSheetOptions* opts = [CSUIActionSheetOptions optionsWithView:nil];
+    id mockOpts = [OCMockObject partialMockForObject:opts];
+    [[[mockOpts stub] andReturnValue:@(YES)] interfaceIdiomForbidsCancelButton];
+    opts.forceCancelButton = YES;
+    
+    XCTAssertTrue([[opts cancelButtonTitle] isKindOfClass:[NSString class]], @"Force cancel button has to result in a cancel button being returned by `cancelButtonTitle`");
+}
+
 - (void)testDefaultCancelButtonForiPhoneIdiom
 {
     
