@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "CSUIActionSheet"
-  s.version      = "0.0.1"
+  s.version      = "0.0.2"
   s.summary      = "Congfigure UIActionSheet using a configuration object. Handle actions using blocks."
 
   s.description  = <<-DESC
