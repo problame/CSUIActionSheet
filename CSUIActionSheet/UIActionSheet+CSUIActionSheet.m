@@ -39,14 +39,20 @@
     
     //Presentation
     id view = opts.view;
-    if([view isKindOfClass:[UIView class]]) {
-        [sheet showInView:view];
-    }
-    if([view isKindOfClass:[UITabBar class]]) {
-        [sheet showFromTabBar:(UITabBar*) view];
-    }
-    if([view isKindOfClass:[UIBarButtonItem class]]) {
-        [sheet showFromBarButtonItem:(UIBarButtonItem*) view animated:YES];
+    if (view) {
+        if (!CGRectEqualToRect(opts.rect, CGRectZero)) {
+            [sheet showFromRect:opts.rect inView:view animated:YES];
+        } else {
+            if([view isKindOfClass:[UIView class]]) {
+                [sheet showInView:view];
+            }
+            if([view isKindOfClass:[UITabBar class]]) {
+                [sheet showFromTabBar:(UITabBar*) view];
+            }
+            if([view isKindOfClass:[UIBarButtonItem class]]) {
+                [sheet showFromBarButtonItem:(UIBarButtonItem*) view animated:YES];
+            }
+        }
     }
     
 }

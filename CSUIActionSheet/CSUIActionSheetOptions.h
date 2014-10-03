@@ -14,6 +14,7 @@
 + (instancetype)optionsWithView:(UIView*)view;
 @property (nonatomic, copy) NSString* title;
 @property (nonatomic, weak) UIView* view;
+@property (nonatomic) CGRect rect;
 
 - (void)addOption:(NSString*)buttonTitle callback:(void (^)())callback;
 @property (readonly) NSArray* buttons;
